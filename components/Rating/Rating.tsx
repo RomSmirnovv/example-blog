@@ -1,0 +1,75 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { RatingProps } from "./Rating.props";
+import StartIcon from "./star.svg";
+import cn from "classnames";
+import styles from "./Rating.module.css";
+
+export const Rating = ({
+  isEtitable = false,
+  rating,
+  setRating,
+  ...props
+}: RatingProps): JSX.Element => {
+  const [ratingArray, setRatingArray] = useState<JSX.Element[]>(
+    new Array(5).fill(<></>),
+  );
+
+  useEffect(() => {
+    constructRating(rating);
+  }, [rating]);
+
+  const constructRating = (currentRating: number) => {
+    const updateArray = ratingArray.map((r: JSX.Element, i: number) => {
+      return (
+        <StartIcon
+          key={i}
+          className={cn(styles.star, {
+            [styles.filled]: i < currentRating,
+            [styles.editable]: isEtitable,
+          })}
+          onMouseEnter={() => changeDisplay(i + 1)}
+          onMouseLeave={() => changeDisplay(rating)}
+          onClick={() => onClick(i + 1)}
+          tabIndex={isEtitable ? 0 : -1}
+          onKeyDown={(e: KeyboardEvent<SVGAElement>) =>
+            isEtitable && handleSpace(i + 1, e)
+          }
+        />
+      );
+    });
+
+    setRatingArray(updateArray);
+  };
+
+  const changeDisplay = (i: number) => {
+    if (!isEtitable) {
+      return;
+    }
+    constructRating(i);
+  };
+
+  const onClick = (i: number) => {
+    if (!isEtitable || !setRating) {
+      return;
+    }
+    setRating(i);
+    console.log(i);
+  };
+
+  const handleSpace = (i: number, e: KeyboardEvent<SVGAElement>) => {
+    if (e.code !== "Space" || !setRating) {
+      return;
+    }
+    setRating(i);
+  };
+
+  return (
+    <div {...props}>
+      {ratingArray.map((r, i) => (
+        <span key={i}>{r}</span>
+      ))}
+    </div>
+  );
+};
