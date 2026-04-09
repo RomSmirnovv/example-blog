@@ -1,0 +1,50 @@
+.like {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.like:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+.like:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.like:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.like-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.like-icon {
+  flex-shrink: 0;
+}
+
+.like-inactive {
+  background: #ffffff;
+  color: #303030;
+}
+
+.like-active {
+  background: #ffffff;
+  color: #ffffff;
+}
+
+.like-active svg rect {
+  fill: #303030;
+}
+
+.like-active .like-icon-wrap {
+  background: rgba(0, 0, 0, 0.08);
+}
