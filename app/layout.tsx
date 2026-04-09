@@ -1,4 +1,10 @@
+import { Noto_Sans } from "next/font/google";
 import "./globals.css";
+
+const noto_sans = Noto_Sans({
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -7,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={noto_sans.className}>{children}</body>
     </html>
   );
 }

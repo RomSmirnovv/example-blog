@@ -1,0 +1,32 @@
+.article-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.article-card-time {
+  font-size: 12px;
+  line-height: 1.2;
+  color: #6f6f6f;
+}
+
+.article-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #1f73ea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.article-card-link:hover {
+  text-decoration: underline;
+}
+
+.article-card-arrow {
+  font-size: 12px;
+  line-height: 1;
+}
