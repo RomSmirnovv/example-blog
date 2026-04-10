@@ -1,9 +1,5 @@
-import { Button, Htag, Rating } from "@/components";
-import { ArticleCard } from "@/components/ArticleCard/ArticleCard";
-import { Like } from "@/components/Like/Like";
-import { P } from "@/components/P/P";
 import Page from "@/components/Page/Page";
-import { Tag } from "@/components/Tag/Tag";
+import { withLayout } from "@/components/Layout/withLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,6 +7,8 @@ export const metadata: Metadata = {
   description: "Блог программиста",
 };
 
-export default function Home() {
+function Home(): JSX.Element {
   return <Page />;
 }
+
+export default withLayout(Home);
