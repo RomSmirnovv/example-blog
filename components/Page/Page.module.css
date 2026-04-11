@@ -2,6 +2,42 @@
   padding-top: 8px;
 }
 
+.page-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-head {
+  margin-bottom: 40px;
+}
+
+.page-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #7a7a7a;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-title {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 44px;
+  line-height: 1.02;
+  font-weight: 400;
+}
+
+.page-description {
+  max-width: 760px;
+  margin: 0;
+  color: #6f6f6f;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -9,13 +45,36 @@
 }
 
 @media (width <= 1200px) {
+  .page-title {
+    font-size: 38px;
+  }
+
+  .grid {
+    gap: 24px;
+  }
+}
+
+@media (width <= 992px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (width <= 768px) {
+@media (width <= 640px) {
+  .page-head {
+    margin-bottom: 28px;
+  }
+
+  .page-title {
+    font-size: 30px;
+  }
+
+  .page-description {
+    font-size: 15px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
