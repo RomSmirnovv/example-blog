@@ -1,14 +1,12 @@
-import { ComponentType } from "react";
+import { JSX } from "react";
 import { Layout } from "./Layout";
 
+type ServerComponent<T> = (props: T) => JSX.Element | Promise<JSX.Element>;
+
 export const withLayout = <T extends Record<string, unknown>>(
-  Component: ComponentType<T>,
+  Component: ServerComponent<T>,
 ) => {
-  return function WithLayout(props: T): JSX.Element {
-    return (
-      <Layout>
-        <Component {...props} />
-      </Layout>
-    );
+  return async function WithLayout(props: T): Promise<JSX.Element> {
+    return <Layout>{await Component(props)}</Layout>;
   };
 };
