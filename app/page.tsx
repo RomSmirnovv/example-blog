@@ -7,8 +7,32 @@ export const metadata: Metadata = {
   description: "Блог программиста",
 };
 
-function Home(): JSX.Element {
-  return <Page />;
+export interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+async function getPosts(): Promise<Post[]> {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("Не удалось получить список постов");
+  }
+
+  const posts: Post[] = await response.json();
+
+  return posts;
+}
+
+async function Home(): Promise<JSX.Element> {
+  const posts = await getPosts();
+
+  return <Page posts={posts} />;
 }
 
 export default withLayout(Home);
