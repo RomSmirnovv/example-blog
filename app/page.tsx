@@ -1,6 +1,6 @@
+import { Metadata } from "next";
 import Page from "@/components/Page/Page";
 import { withLayout } from "@/components/Layout/withLayout";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Мой блог",
@@ -12,6 +12,10 @@ export interface Post {
   id: number;
   title: string;
   body: string;
+}
+
+interface HomeProps {
+  githubLink: string;
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -29,10 +33,22 @@ async function getPosts(): Promise<Post[]> {
   return posts;
 }
 
-async function Home(): Promise<JSX.Element> {
-  const posts = await getPosts();
-
-  return <Page posts={posts} />;
+async function getStaticData(): Promise<HomeProps> {
+  return {
+    githubLink: "https://github.com/RomSmirnovv",
+  };
 }
 
-export default withLayout(Home);
+async function Home({ githubLink }: HomeProps): Promise<JSX.Element> {
+  const posts = await getPosts();
+
+  return <Page posts={posts} githubLink={githubLink} />;
+}
+
+async function HomeWithData(): Promise<JSX.Element> {
+  const staticData = await getStaticData();
+
+  return <Home {...staticData} />;
+}
+
+export default withLayout(HomeWithData);
