@@ -1,18 +1,12 @@
 import { Metadata } from "next";
 import Page from "@/components/Page/Page";
 import { withLayout } from "@/components/Layout/withLayout";
+import { Post } from "@/types/post";
 
 export const metadata: Metadata = {
   title: "Мой блог",
   description: "Блог программиста",
 };
-
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
 
 interface HomeProps {
   githubLink: string;
@@ -21,16 +15,14 @@ interface HomeProps {
 async function getPosts(): Promise<Post[]> {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "GET",
-    cache: "no-store",
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {
     throw new Error("Не удалось получить список постов");
   }
 
-  const posts: Post[] = await response.json();
-
-  return posts;
+  return response.json();
 }
 
 async function getStaticData(): Promise<HomeProps> {

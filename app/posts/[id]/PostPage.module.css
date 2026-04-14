@@ -1,0 +1,161 @@
+.post-page {
+  max-width: 720px;
+  padding: 32px 0 80px;
+}
+
+.post-header {
+  margin-bottom: 24px;
+}
+
+.post-title {
+  margin: 0 0 12px;
+  font-size: 56px;
+  line-height: 1.05;
+  font-weight: 700;
+  color: #2f2f2f;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  color: #7b7b7b;
+}
+
+.post-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  background: #d9d9d9;
+}
+
+.post-cover-image {
+  object-fit: cover;
+}
+
+.post-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.post-content p {
+  margin: 0 0 24px;
+}
+
+.post-content h2 {
+  margin: 40px 0 16px;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #2f2f2f;
+}
+
+.post-like-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0 56px;
+  font-size: 24px;
+  color: #404040;
+}
+
+.like-button {
+  width: 52px;
+  height: 52px;
+  border: 1px solid #5a5a5a;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.comments {
+  margin-top: 16px;
+}
+
+.comments-title {
+  margin: 0 0 24px;
+  font-size: 32px;
+  line-height: 1.2;
+  color: #2f2f2f;
+}
+
+.comment-item {
+  margin-bottom: 28px;
+}
+
+.comment-author-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #7b7b7b;
+}
+
+.comment-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comment-input,
+.comment-textarea {
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  padding: 18px 20px;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+}
+
+.comment-submit {
+  width: 200px;
+  height: 56px;
+  border: none;
+  border-radius: 8px;
+  background: #2f2f2f;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back-link-row {
+  margin-top: 32px;
+}
+
+.back-link-row a {
+  color: #2f2f2f;
+  text-decoration: none;
+}
+
+.back-link-row a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .post-title {
+    font-size: 36px;
+  }
+
+  .post-content {
+    font-size: 16px;
+  }
+
+  .comments-title {
+    font-size: 28px;
+  }
+}
