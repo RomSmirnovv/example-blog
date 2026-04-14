@@ -1,9 +1,10 @@
 import { ArticleCard } from "@/components/ArticleCard/ArticleCard";
 import styles from "./Page.module.css";
-import { Post } from "@/app/page";
+import { Post } from "@/types/post";
 
 interface PageProps {
   posts: Post[];
+  githubLink: string;
 }
 
 export default function Page({ posts }: PageProps): JSX.Element {
@@ -14,8 +15,7 @@ export default function Page({ posts }: PageProps): JSX.Element {
           <span className={styles["page-kicker"]}>Статьи</span>
           <h1 className={styles["page-title"]}>Последние публикации</h1>
           <p className={styles["page-description"]}>
-            Подборка заметок про front-end, CSS, React и Next.js. Данные для
-            списка постов загружаются на сервере при открытии страницы.
+            Подборка заметок про front-end, CSS, React и Next.js.
           </p>
         </div>
 
@@ -25,12 +25,12 @@ export default function Page({ posts }: PageProps): JSX.Element {
               key={post.id}
               title={post.title}
               excerpt={post.body}
-              href={`/#post-${post.id}`}
+              href={`/posts/${post.id}`}
               imageSrc="/images/article-preview.jpg"
               imageAlt={post.title}
               category={`User ${post.userId}`}
-              publishedLabel="Только что"
-              readTime="5 минут"
+              publishedLabel="1 месяц назад"
+              readTime="3 минуты"
               likesCount={post.id}
             />
           ))}
