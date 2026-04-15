@@ -26,6 +26,28 @@ async function getAllPosts(): Promise<Post[]> {
   return response.json();
 }
 
+function buildPostHtml(post: Post): string {
+  return `
+    <p>${post.body}</p>
+    <p>
+      Grid Layout — это двумерная система раскладки, которая помогает удобно
+      строить как общую структуру страницы, так и отдельные интерфейсные блоки.
+    </p>
+    <h2>Что такое CSS Grid</h2>
+    <p>
+      По сути это сетка из строк и колонок, внутри которой можно точно размещать
+      элементы и управлять их размерами.
+    </p>
+    <blockquote>
+      Grid особенно удобен там, где нужно контролировать и строки, и колонки одновременно.
+    </blockquote>
+    <p>
+      Поэтому гриды часто используют в карточках, страницах статей, дашбордах и
+      сложных адаптивных макетах.
+    </p>
+  `;
+}
+
 async function getPost(id: string): Promise<Post | null> {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${id}`,
@@ -42,7 +64,12 @@ async function getPost(id: string): Promise<Post | null> {
     throw new Error("Не удалось получить пост");
   }
 
-  return response.json();
+  const post: Post = await response.json();
+
+  return {
+    ...post,
+    html: buildPostHtml(post),
+  };
 }
 
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
@@ -97,7 +124,7 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
           <span>•</span>
           <span>3 минуты</span>
           <span>•</span>
-          <span>{post.id}</span>
+          <span>Пост #{post.id}</span>
         </div>
       </div>
 
@@ -112,23 +139,10 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
         />
       </div>
 
-      <div className={styles["post-content"]}>
-        <p>{post.body}</p>
-
-        <p>
-          Грид-раскладка (CSS Grid Layout) представляет собой двумерную систему
-          сеток в CSS. Гриды подойдут и для верстки основных областей страницы,
-          и для небольших элементов пользовательского интерфейса.
-        </p>
-
-        <h2>Что такое грид?</h2>
-
-        <p>
-          Грид представляет собой пересекающийся набор горизонтальных и
-          вертикальных линий, образующих колонки и строки. Элементы могут быть
-          помещены в грид в пределах линий этих колонок и строк.
-        </p>
-      </div>
+      <div
+        className={styles["post-content"]}
+        dangerouslySetInnerHTML={{ __html: post.html ?? `<p>${post.body}</p>` }}
+      />
 
       <div className={styles["post-like-row"]}>
         <span>Понравилось? Жми</span>
@@ -137,41 +151,6 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
           👍
         </button>
       </div>
-
-      <section className={styles["comments"]}>
-        <h2 className={styles["comments-title"]}>Комментарии</h2>
-
-        <div className={styles["comment-item"]}>
-          <div className={styles["comment-author-row"]}>
-            <strong>Василий Пупкин</strong>
-            <span>•</span>
-            <span>pupkin@gmail.com</span>
-          </div>
-
-          <p className={styles["comment-text"]}>
-            Отличная статья, но не хватает информации о том, как лучше
-            реализовать на гридах более сложные конструкции.
-          </p>
-        </div>
-
-        <form className={styles["comment-form"]}>
-          <input
-            type="text"
-            placeholder="Имя"
-            className={styles["comment-input"]}
-          />
-
-          <textarea
-            placeholder="Комментарий"
-            className={styles["comment-textarea"]}
-            rows={5}
-          />
-
-          <button type="submit" className={styles["comment-submit"]}>
-            Отправить
-          </button>
-        </form>
-      </section>
 
       <div className={styles["back-link-row"]}>
         <Link href="/">← Назад к списку постов</Link>
