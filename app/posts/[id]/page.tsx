@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { withLayout } from "@/components/Layout/withLayout";
 import { Post } from "@/types/post";
+import { Comment } from "@/types/comment";
 import styles from "./PostPage.module.css";
 
 interface PageProps {
@@ -72,6 +73,21 @@ async function getPost(id: string): Promise<Post | null> {
   };
 }
 
+async function getCommentsByPostId(postId: string): Promise<Comment[]> {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
+    {
+      next: { revalidate: 3600 },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Не удалось получить комментарии");
+  }
+
+  return response.json();
+}
+
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
   const posts = await getAllPosts();
 
@@ -106,7 +122,11 @@ async function getStaticData(): Promise<HomeProps> {
 
 async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
   const { id } = await params;
-  const post = await getPost(id);
+
+  const [post, comments] = await Promise.all([
+    getPost(id),
+    getCommentsByPostId(id),
+  ]);
 
   if (!post) {
     notFound();
@@ -143,6 +163,44 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
         className={styles["post-content"]}
         dangerouslySetInnerHTML={{ __html: post.html ?? `<p>${post.body}</p>` }}
       />
+
+      <section
+        className={styles["comments-section"]}
+        aria-labelledby="comments-title"
+      >
+        <div className={styles["comments-head"]}>
+          <h2 id="comments-title" className={styles["comments-title"]}>
+            Комментарии
+          </h2>
+          <span className={styles["comments-count"]}>{comments.length}</span>
+        </div>
+
+        {comments.length > 0 ? (
+          <div className={styles["comments-list"]}>
+            {comments.map((comment) => (
+              <article key={comment.id} className={styles["comment-card"]}>
+                <div className={styles["comment-card-head"]}>
+                  <div>
+                    <h3 className={styles["comment-name"]}>{comment.name}</h3>
+                    <a
+                      href={`mailto:${comment.email}`}
+                      className={styles["comment-email"]}
+                    >
+                      {comment.email}
+                    </a>
+                  </div>
+
+                  <span className={styles["comment-id"]}>#{comment.id}</span>
+                </div>
+
+                <p className={styles["comment-body"]}>{comment.body}</p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className={styles["comments-empty"]}>Комментариев пока нет.</p>
+        )}
+      </section>
 
       <div className={styles["post-like-row"]}>
         <span>Понравилось? Жми</span>
