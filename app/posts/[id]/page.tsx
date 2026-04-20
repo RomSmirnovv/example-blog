@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { withLayout } from "@/components/Layout/withLayout";
+import { CommentForm } from "@/components/CommentForm/CommentForm";
 import { Post } from "@/types/post";
 import { Comment } from "@/types/comment";
 import styles from "./PostPage.module.css";
@@ -200,6 +201,7 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
         ) : (
           <p className={styles["comments-empty"]}>Комментариев пока нет.</p>
         )}
+        <CommentForm />
       </section>
 
       <div className={styles["post-like-row"]}>

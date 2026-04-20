@@ -1,0 +1,21 @@
+.form {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.submitButton {
+  align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+  .form {
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}
