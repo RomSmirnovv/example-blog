@@ -15,11 +15,18 @@
   cursor: pointer;
   transition:
     transform 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .button:hover {
   opacity: 0.94;
+}
+
+.button:focus-visible {
+  outline: 3px solid #1f73ea;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgb(31 115 234 / 0.18);
 }
 
 .button:active {

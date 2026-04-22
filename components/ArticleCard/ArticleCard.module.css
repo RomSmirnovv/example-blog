@@ -59,9 +59,16 @@
   line-height: 1.12;
   font-weight: 700;
   letter-spacing: -0.02em;
+  border-radius: 8px;
 }
 
 .article-card-title-link:hover {
+  text-decoration: underline;
+}
+
+.article-card-title-link:focus-visible {
+  outline: 3px solid #1f73ea;
+  outline-offset: 4px;
   text-decoration: underline;
 }
 

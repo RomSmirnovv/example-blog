@@ -18,9 +18,9 @@
   color: #a6afbf;
 }
 
-.input:focus {
-  border-color: #9fa8b7;
-  box-shadow: 0 0 0 3px rgb(47 47 47 / 0.06);
+.input:focus-visible {
+  border-color: #1f73ea;
+  box-shadow: 0 0 0 4px rgb(31 115 234 / 0.14);
 }
 
 @media (max-width: 768px) {

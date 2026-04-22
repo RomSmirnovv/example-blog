@@ -9,6 +9,10 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps): JSX.Element => {
   return (
     <div className={styles["layout"]}>
+      <a href="#main-content" className={styles["skip-link"]}>
+        Перейти к основному содержимому
+      </a>
+
       <header className={styles["header"]}>
         <div className={styles["container"]}>
           <div className={styles["header-row"]}>
@@ -20,7 +24,7 @@ export const Layout = ({ children }: LayoutProps): JSX.Element => {
               href="https://github.com/RomSmirnovv/example-blog"
               target="_blank"
               rel="noreferrer"
-              aria-label="GitHub"
+              aria-label="Открыть репозиторий example-blog на GitHub"
               className={styles["github-link"]}
             >
               <svg
@@ -40,7 +44,7 @@ export const Layout = ({ children }: LayoutProps): JSX.Element => {
         </div>
       </header>
 
-      <main className={styles["main"]}>
+      <main id="main-content" className={styles["main"]} tabIndex={-1}>
         <div className={styles["container"]}>{children}</div>
       </main>
     </div>

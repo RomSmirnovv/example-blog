@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArticleCardFooterProps } from "./ArticleCardFooter.props";
 import styles from "./ArticleCardFooter.module.css";
-import Image from "next/image";
 import cn from "classnames";
 
 export const ArticleCardFooter = ({
@@ -13,9 +12,15 @@ export const ArticleCardFooter = ({
     <div className={cn(styles["article-card-footer"], className)}>
       <span className={cn(styles["article-card-time"])}>{readTime}</span>
 
-      <Link href={href} className={cn(styles["article-card-link"])}>
+      <Link
+        href={href}
+        className={cn(styles["article-card-link"])}
+        aria-label={`Читать статью полностью`}
+      >
         Читать
-        <span className={cn(styles["article-card-arrow"])}>→</span>
+        <span className={cn(styles["article-card-arrow"])} aria-hidden="true">
+          →
+        </span>
       </Link>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArticleCard } from "@/components/ArticleCard/ArticleCard";
 import styles from "./Page.module.css";
 import { Post } from "@/types/post";
@@ -36,6 +36,8 @@ const itemVariants = {
 };
 
 export default function Page({ posts }: PageProps): JSX.Element {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className={styles["page"]}>
       <div className={styles["page-inner"]}>
@@ -49,12 +51,15 @@ export default function Page({ posts }: PageProps): JSX.Element {
 
         <motion.div
           className={styles["grid"]}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial={shouldReduceMotion ? false : "hidden"}
+          animate={shouldReduceMotion ? false : "visible"}
         >
           {posts.map((post) => (
-            <motion.div key={post.id} variants={itemVariants}>
+            <motion.div
+              key={post.id}
+              variants={shouldReduceMotion ? undefined : itemVariants}
+            >
               <ArticleCard
                 title={post.title}
                 excerpt={post.body}
