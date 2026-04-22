@@ -140,11 +140,11 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
 
         <div className={styles["post-meta"]}>
           <span>Front-end</span>
-          <span>•</span>
+          <span aria-hidden="true">•</span>
           <span>1 месяц назад</span>
-          <span>•</span>
+          <span aria-hidden="true">•</span>
           <span>3 минуты</span>
-          <span>•</span>
+          <span aria-hidden="true">•</span>
           <span>Пост #{post.id}</span>
         </div>
       </div>
@@ -201,13 +201,18 @@ async function PostDetail({ params }: PageProps): Promise<JSX.Element> {
         ) : (
           <p className={styles["comments-empty"]}>Комментариев пока нет.</p>
         )}
+
         <CommentForm />
       </section>
 
       <div className={styles["post-like-row"]}>
         <span>Понравилось? Жми</span>
 
-        <button type="button" className={styles["like-button"]}>
+        <button
+          type="button"
+          className={styles["like-button"]}
+          aria-label="Поставить лайк"
+        >
           👍
         </button>
       </div>

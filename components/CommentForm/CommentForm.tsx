@@ -6,19 +6,29 @@ import styles from "./CommentForm.module.css";
 export function CommentForm(): JSX.Element {
   return (
     <form className={styles.form}>
-      <Input
-        type="text"
-        name="name"
-        placeholder="Имя"
-        aria-label="Имя"
-        autoComplete="name"
-      />
+      <div className={styles.field}>
+        <label htmlFor="comment-name" className={styles.label}>
+          Имя
+        </label>
+        <Input
+          id="comment-name"
+          type="text"
+          name="name"
+          placeholder="Введите Ваше имя"
+          autoComplete="name"
+        />
+      </div>
 
-      <TextArea
-        name="comment"
-        placeholder="Комментарий"
-        aria-label="Комментарий"
-      />
+      <div className={styles.field}>
+        <label htmlFor="comment-text" className={styles.label}>
+          Комментарий
+        </label>
+        <TextArea
+          id="comment-text"
+          name="comment"
+          placeholder="Введите Ваш комментарий"
+        />
+      </div>
 
       <Button type="submit" className={styles.submitButton}>
         Отправить

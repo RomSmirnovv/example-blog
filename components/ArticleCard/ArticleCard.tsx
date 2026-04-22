@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { ArticleCardFooter } from "../ArticleCardFooter/ArticleCardFooter";
-import { Htag } from "../Htag/Htag";
 import { ArticleCardProps } from "./ArticleCard.props";
 import { ArticleCardImage } from "../ArticleCardImage/ArticleCardImage";
 import styles from "./ArticleCard.module.css";
@@ -21,12 +19,7 @@ export const ArticleCard = ({
 }: ArticleCardProps): JSX.Element => {
   return (
     <article className={cn(styles["article-card"], className)}>
-      <ArticleCardImage
-        href={href}
-        src={imageSrc}
-        alt={imageAlt || title}
-        title={title}
-      />
+      <ArticleCardImage src={imageSrc} alt={imageAlt || title} />
 
       <div className={cn(styles["article-card-body"])}>
         <div className={cn(styles["article-card-meta-row"])}>
@@ -41,14 +34,17 @@ export const ArticleCard = ({
             aria-label={`${likesCount} лайков`}
           >
             <span>{likesCount}</span>
-            <LikeIcon className={cn(styles["article-card-likes-icon"])} />
+            <LikeIcon
+              className={cn(styles["article-card-likes-icon"])}
+              aria-hidden="true"
+            />
           </div>
         </div>
 
         <h3 className={cn(styles["article-card-title"])}>
-          <Link href={href} className={cn(styles["article-card-title-link"])}>
+          <a href={href} className={cn(styles["article-card-title-link"])}>
             {title}
-          </Link>
+          </a>
         </h3>
 
         <p className={cn(styles["article-card-excerpt"])}>{excerpt}</p>

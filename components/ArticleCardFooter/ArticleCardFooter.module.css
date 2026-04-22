@@ -20,9 +20,16 @@
   color: #1f73ea;
   text-decoration: none;
   font-weight: 500;
+  border-radius: 8px;
 }
 
 .article-card-link:hover {
+  text-decoration: underline;
+}
+
+.article-card-link:focus-visible {
+  outline: 3px solid #1f73ea;
+  outline-offset: 4px;
   text-decoration: underline;
 }
 
