@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 import { RatingProps } from "./Rating.props";
 import StartIcon from "./star.svg";
 import cn from "classnames";
@@ -21,52 +21,81 @@ export const Rating = ({
   }, [rating]);
 
   const constructRating = (currentRating: number) => {
-    const updateArray = ratingArray.map((r: JSX.Element, i: number) => {
+    const updateArray = new Array(5).fill(null).map((_, i: number) => {
+      const starNumber = i + 1;
+      const isFilled = i < currentRating;
+
       return (
-        <StartIcon
+        <button
           key={i}
-          className={cn(styles.star, {
-            [styles.filled]: i < currentRating,
+          type="button"
+          className={cn(styles["star-button"], {
             [styles.editable]: isEtitable,
           })}
-          onMouseEnter={() => changeDisplay(i + 1)}
+          onMouseEnter={() => changeDisplay(starNumber)}
           onMouseLeave={() => changeDisplay(rating)}
-          onClick={() => onClick(i + 1)}
-          tabIndex={isEtitable ? 0 : -1}
-          onKeyDown={(e: KeyboardEvent<SVGAElement>) =>
-            isEtitable && handleSpace(i + 1, e)
+          onClick={() => onClick(starNumber)}
+          onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) =>
+            isEtitable && handleKeyDown(starNumber, e)
           }
-        />
+          disabled={!isEtitable}
+          aria-label={
+            isEtitable
+              ? `Поставить рейтинг ${starNumber} из 5`
+              : `Рейтинг: ${starNumber} из 5`
+          }
+          aria-pressed={isEtitable ? rating === starNumber : undefined}
+        >
+          <StartIcon
+            className={cn(styles.star, {
+              [styles.filled]: isFilled,
+            })}
+            aria-hidden="true"
+          />
+        </button>
       );
     });
 
     setRatingArray(updateArray);
   };
 
-  const changeDisplay = (i: number) => {
+  const changeDisplay = (value: number) => {
     if (!isEtitable) {
       return;
     }
-    constructRating(i);
+
+    constructRating(value);
   };
 
-  const onClick = (i: number) => {
+  const onClick = (value: number) => {
     if (!isEtitable || !setRating) {
       return;
     }
-    setRating(i);
-    console.log(i);
+
+    setRating(value);
   };
 
-  const handleSpace = (i: number, e: KeyboardEvent<SVGAElement>) => {
-    if (e.code !== "Space" || !setRating) {
+  const handleKeyDown = (
+    value: number,
+    e: KeyboardEvent<HTMLButtonElement>,
+  ) => {
+    if (!setRating) {
       return;
     }
-    setRating(i);
+
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      setRating(value);
+    }
   };
 
   return (
-    <div {...props}>
+    <div
+      {...props}
+      className={cn(styles["rating"], props.className)}
+      role={isEtitable ? "radiogroup" : undefined}
+      aria-label={isEtitable ? "Выберите рейтинг" : "Рейтинг"}
+    >
       {ratingArray.map((r, i) => (
         <span key={i}>{r}</span>
       ))}

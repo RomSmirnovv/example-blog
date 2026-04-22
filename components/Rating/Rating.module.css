@@ -1,3 +1,18 @@
+.rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.star-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 6px;
+}
+
 .star {
   fill: var(--white);
   padding-right: 5px;
@@ -9,4 +24,13 @@
 
 .editable {
   cursor: pointer;
+}
+
+.star-button:focus-visible {
+  outline: 3px solid #1f73ea;
+  outline-offset: 2px;
+}
+
+.star-button:disabled {
+  cursor: default;
 }
